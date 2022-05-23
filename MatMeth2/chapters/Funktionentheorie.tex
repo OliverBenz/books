@@ -1,0 +1,1090 @@
+\chapter{Funktionentheorie}
+
+\section{Komplexe Funktionen}
+    In der Funktionentheorie wollen wir unser bisheriges Verständnis von reellen Funktionen in den komplexen Raum erweitern.
+    Hierfür starten wir zuerst mit einer kurzen Wiederholung der komplexen Zahlen, sowie einer einfachen Einführung in komplexe Funktionen.
+
+\subsection{Einführung}
+    Wichtig, durch dieses ganze Kapitel wird sein, dass eine komplexe Zahl $ z = a + ib $ auch als Vektor $ z = (a, b) $ dargestellt werden kann.
+    Somit bilden Funktionen von komplexen Zahlen Vektorfelder.
+    
+    \subsubsection*{Rechenregeln}
+        Zur kurzen Wiederholung werden hier die wichtigsten Rechenregeln dargestellt.
+        
+        \begin{table}[ht]
+            \centering
+            \begin{tabular}{c|c}
+                Multiplikation & $ (a, b) \cdot (u, v) = (au-bv, av+bu) $ \\
+                Potenzen & $z^n = z \cdot z \cdot z \cdot ... \cdot z$ n-times \\
+                Betrag & $|z| = |(a, b)| = \sqrt{a^2 + b^2} = z\cdot \overline{z}$ \\
+                Komplexe Konjugation & $\overline{z} = z^* := a+ib \rightarrow a-ib$
+            \end{tabular}
+        \end{table}
+        
+
+    \subsubsection*{Polarwinkel}
+        Häufig wird uns die Schreibweise im Polarwinkel einiges an Rechenarbeit ersparen.
+        Hier wird anstatt der jeweiligen direkten Angabe des rellen und imaginären Anteils der komplexen Zahl,
+        die Länge und der Winkel des Vektors im komplexen Raum wie folgt angegeben:
+        
+        \begin{equation*}
+            z = (a, b) = \sqrt{a^2 + b^2} \cdot (\cos \alpha, \sin \alpha) = |a+ib| \cdot e^{i\alpha}
+        \end{equation*}
+        
+        Den Polarwinkel $\alpha$ definieren wir hierfür im Bereich $\alpha \in [- \pi, \pi]$.
+        Hierfür verwenden wir die komplexe Exponentialfunktion, deren Bedeutung und Funktionsweise in Kapitel \ref{chap:Funk-Exponentialfunktion} genauer betrachtet wird.
+        Für die komplexen Zahlen $z = |z|e^{i\alpha}, w = |w|e^{i\beta}$ gelten die Rechenregeln:
+        \begin{align*}
+            z \cdot w &= |z| |w| e^{i(\alpha + \beta)}  &  e^w e^z &= e^{w+z}  &  e^{i\alpha} e^{i\beta} &= e^{i(\alpha + \beta)}
+        \end{align*}
+        
+        
+        \subsubsection*{Multiplikation}
+            Die Multiplikation einer komplexen Zahl mit $w = u + iv = |w|e^{i\beta} \in C$ ist eine Streckung um $|w|$ und eine Drehung um $\beta$.
+            Dies können wir als Funktion darstellen:
+            \begin{gather*}
+                \Pi_w: \mathds{C} \rightarrow \mathds{C}, z \rightarrow w\cdot z = |w| e^{i\beta} \cdot z \\
+                \Pi_w(a+bi) = au - bv + i(av + bu) ) =
+                \left( \begin{array}{rr}
+                    u & -v \\ 
+                    v & u \\
+                \end{array}\right)
+                \cdot
+                \left( \begin{array}{r}
+                    a  \\ 
+                    b \\
+                \end{array}\right) = \\
+                 = \underbrace{|w|}_{\text{Streckung}}      % |w|
+                 \cdot \underbrace{\left( \begin{array}{rr}  % Matrix rotation
+                    \cos \beta & -\sin \beta \\ 
+                    \sin \beta & \cos \beta \\
+                \end{array}\right)}_{\text{Rotation}}
+                \cdot
+                \left( \begin{array}{r}                      % Matrix a, b
+                    a  \\ 
+                    b \\
+                \end{array}\right) 
+            \end{gather*}
+            
+
+    \subsubsection*{Beispiel}
+        \begin{gather*}
+            z^{-1} = \frac{1}{z} = \frac{1}{x + iy} = \frac{x-iy}{x^2+y^2}
+            = \frac{x}{x^2+y^2} + i\left( \frac{-y}{x^2+y^2} \right)
+        \end{gather*}
+        % TODO: Skizze
+        
+    \subsubsection*{Beispiel}
+        \begin{gather*}
+            z^2 = (x+iy)(x+iy) = x^2 + y^2 + i(2xy)
+        \end{gather*}
+        % TODO: Skizze
+
+
+\subsection{Exponentialfunktion}
+\label{chap:Funk-Exponentialfunktion}
+
+    Für eine Zahl $z$ kann die Exponentialfunktion mittels ihrer Taylor Reihe dargestellt werden. Diese funktioniert für reelle, sowie für komplexe Zahlen.
+    \begin{equation*}
+        e^z = \sum_{k=0}^\infty \frac{z^k}{k!}
+    \end{equation*}
+    
+    Die komplexwertive Exponentialfunktion, mit einer reellen Zahl $\alpha \in \mathds{R}$ ergibt somit:
+    \begin{gather*}
+        e^{i \alpha} = \sum_{k=0}^\infty i^k \frac{\alpha^k}{k!} = \\
+        = \sum_{k=0}^\infty i^{2k} \frac{\alpha^{2k}}{(2k)!} + \sum_{k=0}^\infty i^{2k+1} \frac{\alpha^{2k+1}}{(2k+1)!} = \\
+        = \sum_{k=0}^\infty (-1)^k \frac{\alpha^{2k}}{(2k)!} + i\sum_{k=0}^\infty(-1)^k \frac{\alpha^{2k+1}}{(2k+1)!} = \cos \alpha + i \sin \alpha
+    \end{gather*}
+    
+    Was bedeutet, dass die komplexe Exponentialfunktion $\exp[i \alpha]$ genau eine Rotation um den Winkel $\alpha$ im komplexen Raum beschreibt.
+    \begin{equation*}
+        e^{i \alpha} = \cos \alpha + i \sin \alpha
+    \end{equation*}
+
+    Eine wichtige Eigenschaft der komplexen Exponentialfunktion kann direkt durch einsetzen beobachtet werden:
+    \begin{gather*}
+        e^{2k \pi i} = 1 ,  \,\, \forall k \in \mathds{N}_0 \\
+        \Rightarrow \,\, e^{iz} = e^{i(z + 2 k \pi)}
+    \end{gather*}
+
+
+\subsection{Logarithmus}
+    Zur Herleitung des komplexen Logarithmus als Umkehrfunktion der Exponentialfunktion muss auf die Eigenschaft $ e^{2k\pi i} = 1$ rücksicht genommen werden:
+    \begin{gather*}
+        e^w = z \\
+        \Rightarrow w' = w + 2k \pi i \\
+        \Rightarrow e^{w'} = e^{w + 2k \pi i} = e^w e^{2k \pi i} = e^w
+    \end{gather*}
+    
+    Für eine komplexe Zahl $z$ mit $\arg (z) = \arg(|z|e^{i\alpha}) = \alpha$ schreibt man den koplexen Logarithmus im k-ten Riemannschen Blatt somit als:
+    \begin{equation*}
+        \ln(z) = \ln|z| + i(\arg(z) + 2k \pi)
+    \end{equation*}
+    
+    Der Logarithmus für $k=0$ nennt man den Hauptzweig-Logarithmus. Eine \textbf{wichtige Eigenschaft} des komplexen Logarithmus, in der er sich vom reellen unterscheidet ist:
+    \begin{equation*}
+        \ln(w \cdot z) \neq \ln(w) + \ln(z)
+    \end{equation*}
+    
+    Dies können wir in dem folgenden Beispiel sehr schnell sehen.
+    \begin{align*}
+        z = w &= \frac{-1+i}{\sqrt{2}}   &   \ln(z \cdot w) &= \frac{-i \pi}{2}   &   \ln(z) + \ln(w) &= \frac{3 \pi i}{2}
+    \end{align*}
+
+    \subsubsection*{Beispiel Logarithmusberechnung}
+        Zuerst wollen wir die komplexe Zahl immer in Polardarstellung bringen. 
+        \begin{align*}
+            z &= 1+i   &   |z| &= \sqrt{a^2 + b^2} = \sqrt{2}   &   \arg(z) &= \arctan \left(\frac{b}{a} \right) = \frac{\pi}{4}
+        \end{align*}
+        
+        Somit erhält man:
+        \begin{equation*}
+            z = \sqrt{2}e^{i\frac{\pi}{4}}
+        \end{equation*}
+        
+        Diese kann jetzt direkt in die Logarithmusformel ingesetzt werden. Für den Hauptlogarithmus ($k=0$) erhält man.
+        \begin{equation*}
+            \ln(z) = \ln(1 + i) = \ln \sqrt{2} + i \frac{\pi}{4}
+        \end{equation*}
+
+
+\subsection{Potenzfunktionen}
+    Da wir bereits einige Abweichungen zwischen reell- und komplexwertigen Funktionen betrachtet haben, wollen wir und zuletzt noch den Potenzfunktionen widmen.
+    
+    \subsubsection{Wurzelfunktion}
+        Wie bereits gesehen, kann jede komplexe Zahl in Polarform mittels der Exponentialfunktion und einem Vorfaktor dargestellt werden.
+        Diese Eingenschaft sorgt erneut dafür, dass die Wurzelfunktion etwas spezieller definiert werden muss, um eine geeignete Umkehrfunktion zu bilden.
+        
+        Betrachten wir die n-te Wurzel der komplexen Zahl $ z = a + ib $ mit $ z^n = w$, $w = |w| e^{i\Phi} \in \mathds{C}$.
+        Hierfür erhalten wir als Ergebnis der n-ten Wurzel:
+        \begin{equation*}
+            z_k = \sqrt[n]{|w|} \cdot e^{i\frac{\Phi}{n}} \cdot e^{i 2\pi \frac{k}{n}}
+        \end{equation*}
+        
+        Der letzte Term auf der Rechten Seite wird die \textbf{Einheitswurzel} genannt und kompensiert die Eigenschaft, dass $e^{2\pi ki} = 1 $, $\forall k \in \mathds{N}_0$.
+        Sie ist definiert als:
+        \begin{equation*}
+            E_n = \{ e^{i 2\pi \frac{k}{n}}, k=0, 1, \dots, n-1 \}
+        \end{equation*}
+
+        So kann auch direkt gesehen werden, dass die Abbildung $ z \rightarrow z^n$ für $z \in \mathds{C}$ nicht injektiv ist.
+        Sie kann durch folgende Einschränkung jedoch injektiv gemacht werden:
+        \begin{align*}
+            z &= |z|e^{i \Phi}   &    - \frac{\pi}{n} &< \Phi < \frac{\pi}{n}
+        \end{align*}
+        
+    \subsubsection*{Herleitung Wurzelfunktion}
+        Durch Ausnutzung der Logarithmusregeln kann die Wurzelfunktion für eine Zahl $ z = |z|e^{i\Phi} \in \mathds{C} $ wie folgt hergeleitet werden:
+        \begin{gather*}
+            \sqrt[n]{z} = z^{1/n} = e^{(1/n) \ln(z)} = \exp \left[ \frac{1}{n} (\ln|z| + i (\arg(z) + 2 k \pi)) \right] \\
+            = \exp \left[ \frac{1}{n} \ln |z| \right] \cdot \exp \left[i \frac{\arg (z)}{n} \right] \cdot \exp \left[\frac{2k \pi i}{n} \right] \\
+            = \sqrt[n]{|z|} \cdot e^{i \frac{\Phi}{n}} \cdot e^{2 \pi i \frac{k}{n}}
+        \end{gather*}
+        
+        Hierfür wurde verwendet, dass:
+        \begin{equation*}
+            \exp \left[ \frac{1}{n} \ln |z| \right] = \exp \left[ \ln|z| \right]^{1/n} = \sqrt[n]{|z|}
+        \end{equation*}
+        
+    \subsubsection{Potenzfunktion}
+        Wir definieren die allgemeine Potenzfunktion als
+        \begin{equation*}
+            P_\alpha : z \rightarrow z^\alpha = e^{\alpha ln(z)}
+        \end{equation*}
+        
+        Hier müssen jedoch einige \textbf{wichtige Eigenschaften} berücksichtigt werden, die die komplexe Potenzfunktion von der reellwertigen unterscheidet:
+        \begin{gather*}
+            z^\alpha \cdot z^\beta = z^{\alpha + \beta}, \forall z \in \mathds{C} \\
+            P_\alpha(z \cdot w) \neq P_\alpha(z) \cdot P_\alpha(w) \\
+            (z^\alpha)^\beta \neq z^{\alpha \cdot \beta}
+        \end{gather*}
+           
+           
+\newpage 
+\section{Komplexe Ableitungen}
+    Zur weiteren Betrachtung der Funktionentheorie, insbesondere komplexer Funktionen, wird der Ableitungsbegriff unentbehrlich. Diesen wollen wir in diesem Kapitel für den komplexen Raum einführen.
+    
+\subsection{Einführung}
+    Sei $\Omega \subset \mathds{R}^2, f: \Omega \rightarrow \mathds{R}^2$. Die Funktion f heißt in $z \in \Omega$ reell total differenzierbar, falls $d_z f: \mathds{R}^2 \rightarrow \mathds{R}^2$ existiert mit:
+    \begin{equation*}
+        \lim_{\xi \to 0} \frac{|f(z+\xi) - f(z) - d_z f(\xi)|}{\xi} = 0
+    \end{equation*}
+    
+    Sei $f$ in $z$ total differenzierbar und $w \in \mathds{R}$, sodass $d_z f(\xi)=w \cdot \xi$, dann heißt f in z komplex differenzierbar.
+    \begin{equation*}
+        f'(z) = w = \lim_{\xi \to 0} \frac{f(z+\xi) - f(\xi)}{\xi}
+    \end{equation*}
+    
+    \subsubsection*{Allgemeine Regeln}
+        Die Grundlegenden Rechenregeln können von reellwertigen Ableitungen übernommen werden. Hier gibt es keine Änderungen.
+        \begin{gather*}
+            (\alpha f + g)(z) = \alpha f'(z) + g'(z) \\
+            (f \cdot g)'(z) = f'(z)g(z) + f(z)g'(z) \\
+            \left( \frac{f}{g} \right)'(z) = \frac{f'(z)g(z) - f(z)g'(z)}{g^2(z)}
+        \end{gather*}
+        
+        Weiters wollen wir jedoch die einzelnen Ableitungsarten betrachten. Hierfür leiten wir, wie in Analysis I für reelle Funktionen, allgemeine Regeln ab.
+        
+    \subsubsection*{Potenzen}
+        $f(z) = z^n, n \in \mathds{N}_0$
+        \begin{equation*}
+            (z^n)' = \lim_{\xi \to 0} \frac{(z+\xi)^n - z^n}{\xi} = \binom{n}{n-1} z^{n-1} = nz^{n-1} 
+        \end{equation*}
+    
+        Wobei wir die folgenden Relationen verwendet haben um den Ausdruck $(z+\xi)^n$ zu vereinfachen:
+        \begin{gather*}
+            (z+\xi)^n = \sum_{k=0}^n \binom{n}{k} z^k \xi^{n-k} \\
+            \Rightarrow (z+\xi)^n - z^n = \sum_{k=0}^{n-1} \binom{n}{k} z^k \xi^{n-k}
+        \end{gather*}
+        
+        Mit unserer vorhin eingeführten Funktionsschreibweise der Potenzfunktion kann die Ableitung ebenso wiefolgt geschrieben werden:
+        \begin{equation*}
+            P_\alpha'(z) = \frac{\alpha}{z} e^{\alpha ln(z)} = \alpha P_{\alpha - 1}(z)
+        \end{equation*}
+    
+    \subsubsection*{Exponentialfunktion}
+        Mithilfe der Potenzableitung $(z^n)' = nz^{n-1}$ können wir direkt auf die Ableitung der Exponentialfunktion schließen.
+        \begin{equation*}
+            (e^z)' = e^z
+        \end{equation*}
+        
+    \subsubsection*{Logarithmus}
+        Die Ableitung des komplexen Logarithmus kann direkt mithilfe der Identität $ z = e^{\ln z} $ bestimmt werden.
+        \begin{gather*}
+            1 = e^{\ln z} \ln' z = z \cdot \ln' z \\
+            \ln' z = \frac{1}{z}
+        \end{gather*}
+    
+    \subsubsection*{Komplexe Konjugation}
+        Die Abbildung $f(a + ib) \rightarrow a - ib $, oder 
+        $\left( \begin{array}{rr}  % Matrix rotation
+            1 & 0 \\ 
+            0 & -1 \\
+        \end{array}\right)$ in Matrixschreibweise, besitzt keinen komplexen Grenzwert.
+    
+    
+\subsection{Holomorphie}
+    Die Funktion $ f: \Omega \rightarrow \mathds{C} $ mit $\Omega \in \mathds{C}$ offen, heißt holomorph, wenn $f$ überall differenzierbar ist. Es existiert eine Stammfunktion $F$ mit $F' = f$. Ist $F$ eine Stammfunktion und $G$ eine weitere Stammfunktion von $f$, dann ist $F-G = \text{konstant}$.
+
+    \subsubsection*{Cauchy-Riemannsche Differentialgleichung}
+        Die Funktion $f(z) = f(x + iy) = u(x, y) + iv(x, y)$ ist genau dann holomorph, wenn die folgenden Riemannschen Differentialgleichungen erfüllt sind.
+        Eine Herleitung und ein Beweis dieser Differentialgleichungen wurde im Proseminar erledigt und wird hier vorerst nicht weiter ausgeführt.
+        % TODO: Beweis und Herleitung in Skript -> Dann letzter satz löschen
+        
+        \begin{align*}
+            \partial_x v &= -\partial_y u \\
+            \partial_x u &= \partial_y v
+        \end{align*}
+        
+    \subsubsection*{Beispiel}
+        Als Beispiel wollen wir uns die Funktion $f(z) = e^z$ ansehen. Zuerst bringen wir diese in die Schreibweise $f(x+iy) = u(x, y) + iv(x, y)$.
+        \begin{equation*}
+            f(z) = e^z = e^x e^{iy} = e^x(\cos y + i \sin y) = e^x \cos y + i e^x \sin y
+        \end{equation*}
+        
+        Hier kann können direkt die Funktionen $u(x, y)$ und $v(x, y)$ abgelesen werden.
+        \begin{align*}
+            u(x, y) &= e^x cos(y)   &   v(x, y) &= e^x sin(y)
+        \end{align*}
+        
+        Durch Einsetzen der Funktionen in die Riemannschen Differentialgleichungen kann direkt das Ergebnis gesehen werden.
+        \begin{align*}
+            \partial_x u(x, y) &= e^x \cos(y)   &   \partial_y u(x, y) &= -e^x \sin(y) \\
+            \partial_x v(x, y) &= e^x \sin(y)   &   \partial_y v(x, y) &= e^x \cos(y)
+        \end{align*}
+        
+        Die Differentialgleichungen sind somit erfüllt und die Funktion $f(z) = e^z$ ist auf ganz $\mathds{C}$ holomorph.
+    
+    
+\newpage    
+\section{Reihen}
+    In der weiteren Betrachtung der Reihendarstellungen soll nun zuerst eine kurze Wiederholung der bereits bekannten Potenzreihen folgen.
+    
+\subsection{Potenzreihen}
+    Die Folge $(f_n)$ der Polynome $f_n: \mathds{C} \rightarrow \mathds{C}$ um den Entwicklungspunkt $z_0$ mit der folgenden Form wird als Potenzreihe bezeichnet. Dabei ist zu beachten, dass nur Indizes mit $k \in \mathds{N}_0$ inkludiert sind.
+    \begin{equation*}
+        f_n(z) = \sum_{k=0}^n c_k(z-z_0)^k
+    \end{equation*}
+
+    \subsubsection*{Spezialfall $c_k = 1$}
+        Wenn alle Vorfaktoren $c_k = 1$ sind, und wir um den Nullpunkt entwickeln, so wird die Potenzreihe zu einer geometrische Reihe, deren Form sich stark vereinfachen lässt. Um diese herzuleiten schreiben wir die Summe erstmal in ihren Einzeiteilen aus:
+        \begin{gather*}
+            \lim_{n \to \infty} \sum_{k=0}^n z^k = 1 + z + \dots + z^n = \\
+            \lim_{n \to \infty} 1 + z(1 + z + \dots + z^{n-1}) = \\
+            \lim_{n \to \infty} 1 + z\cdot f_{n-1}(z) = \lim_{n \to \infty} f_{n-1}(z) + z^n \\
+        \end{gather*}
+        
+        Für $\lim_{n \to \infty}$ kann $n-1 = n$ genähert werden. Durch Umformen der letzten Zeile und Anwenden dieser Näherug kommen wir auf den bekannten Ausdruck der geometrischen Reihe:
+        \begin{equation*}
+            \lim_{n \to \infty} f_n(z) = \frac{1-z^n}{1-z}
+        \end{equation*}
+    
+        Dieser ist definiert für alle $z \in \mathds{C}\backslash \{1\}$. Um die Konvergenz dieser Reihe zu überprüfen machen wir folgende Fallunterscheidung:
+        \begin{align*}
+            \text{Für }  z  &< 1    &    &\lim_{n \to \infty} f_n(z) = \frac{1}{1-z} \\
+            \text{Für }  z  &= 1    &    &\lim_{n \to \infty} f_n(z) \rightarrow \infty \\
+            \text{Für } |z| &= 1    &    &z^n = e^{in \phi} = \cos(n \phi) + i \sin(n \phi), \phi \in [0, 2 \pi] \\
+            & & &\Rightarrow f_n(z) \text{nicht konvergent}
+        \end{align*}
+        
+        Sei $(f_n)$ eine Potenzreihe um 0. Die komplexe Zahlenfolge $f_n(z_1)$ sei konvergent. $\Rightarrow (f_n)$ konvergent auf Kreisscheibe $\overline{K}_r$ mit $(z) < r$
+    
+        Sei $f: \Omega \rightarrow \mathds{C}$ holomorph, dann existiert genau eine Potenzreihe mit positivem Konvergenzradius und erfüllt $f(z) = \sum_{k=0}^\infty \frac{f^{(n)}(z_0)}{k!} (z-z_0)^k$
+        
+    Sei $(f_n) = (\sum_{k=0}^n c_k z^k)$ eine Potenzreihe mit Konvergenzradius $\varrho$, dann konvergiert $(f_n)$ auf $K_\varrho$ gegen die holomorphe Funktion $f$ mit
+    \begin{equation*}
+        f'(z) = \lim_{n \to \infty} \sum_{k=1}^n k \cdot c_k z^{k-1}
+    \end{equation*}
+    Sie konvergiert für kein $z > \varrho$
+    
+    \subsubsection*{Beispiel}
+        $f(z) = \frac{1}{1+z^2}$, $\forall z \in \mathds{C} \backslash \{ i, -i \}$
+        % TODO: Write 
+        
+        
+\subsection{Laurentreihe}
+    Die Laurentreihe ist eine verallgemeinerte Form der Potenzreihe, anderst wie diese, auch negative Exponenten zulässt. Ihre allgemeinste Form lautet:
+    \begin{equation*}
+        f(z) = \sum_{k = -\infty}^{\infty} c_k (z-z_0)^k
+    \end{equation*}
+    
+    und besteht aus einem Hauptteil und einem Nebenteil.
+    \begin{equation*}
+        f_H(z) = \sum_{k=-\infty}^{-1} c_k z^k
+        \tag{Hauptteil}
+    \end{equation*}
+    \begin{equation*}
+        f_N(z) = \sum_{k=0}^\infty c_k z^k
+        \tag{Nebenteil}
+    \end{equation*}
+
+    
+    % TODO: Verständlich konvergenz von laurentreihe lernen und schreiben.
+    %Sei $c_k \in \mathds{C}$ und $n, m \in \mathds{N}_0$, dann ist $f_{n, m} = \sum_{k=-m}^n c_k z^k$. Weiters sei der Konvergenzradius von $\sum_{k=0}^\infty \in \mathds{R}$ und der Konvergenzradius von $\sum_{k=1}^\infty c_{-k} z^k : \frac{1}{r} = \varrho $. Die Funktionenfamilie $f_{n, m}$ heißt Laurentreihe.
+    
+    %Die Folge $(f_{n, m})$ einer Laurentreihe konvergiert innerhalb des Kreisringes $ r < |z| < R$
+    
+    % TODO: Skizze Kreisring
+    % TODO: Erklärung, was ist kreisring warum wichtig
+    
+    \subsubsection*{Entwicklungssatz}
+        Wie die Potenzreihe die Taylorentwicklung hat, so hat die Laurentreihe ihren eigenen Entwicklungssatz. Für die Taylorreihe wird die Entwicklung mit den jeweiligen Ableitungen in einem Punkt bestimmt, hier werden die Koeffizienten über das Integrieren ermittelt.
+        
+        Sei $\Omega \subset \mathds{C}$ offen und $f$ holomorph. Für $z_0 \in \mathds{C}$; $r, R \in \mathds{R}_{>0}$ und $r < R$ sei der Kreisring $K(r, R) = \{z \in \mathds{C} : r < |z-z_0|\}$.
+        Dann besitzt f eine Laurentreihe.
+        \begin{align*}
+            f(z) &= \sum_{k\in\mathds{Z}} c_k (z-z_0)^k & &\text{mit} & c_k &= \frac{1}{2 \pi i} \int_\gamma \frac{f(z) dz}{(z-z_0)^{k+1}}
+        \end{align*}
+        , wobei $\gamma: [0, 2\pi] \rightarrow \mathds{C}$ mit $\gamma(t) = \rho e^{it} ,\; \forall \rho \in (r, R)$
+        % TODO: Ohne beschreibung von kreisradius macht diese wegdefinition keinen sinn...
+
+    \subsubsection*{Beispiel}
+        Gegeben sei die Funktion$f(z) = \frac{1}{1+z^2}$, die wir um den Punkt $z_0 = i$ entwickeln wollen. Die Umformung in eine Laurentreihe kann für diese Funktion einfach ohne den Entwicklungssatz gemacht werden. Dazu gehen wir wiefolgt vor:
+        \begin{gather*}
+            \frac{1}{1+z^2} = \frac{1}{z-1} \cdot \frac{1}{z+i} = \frac{1}{z-i} \cdot \frac{1}{z-i+2i} \\
+            = \frac{1}{z-i} \cdot \frac{1}{zi} \cdot \frac{1}{1-\frac{i}{2}(z-i)} \\
+            = \frac{1}{z-i} \frac{1}{zi} \sum_{k=0}^\infty \left(\frac{i}{2}\right)^2 (z-i)^k 
+            = \sum_{k=0}^\infty \frac{1}{2i} \left(\frac{i}{2} \right)^k (z-i)^{k-1} \\
+            = \sum_{k=-1}^\infty \frac{1}{2i} \left(\frac{i}{2} \right)^{k+1} (z-i)^k
+        \end{gather*}
+        
+        Somit haben wir die Laurentreihe für die Funktion um den Punkt $z_0 = i$ entwickelt.
+        \begin{equation*}
+            f(z) = \sum_{k=-1}^\infty \frac{1}{2i} \left(\frac{i}{2} \right)^{k+1} (z-i)^k
+        \end{equation*}
+        
+        Die Vorfaktoren $c_k$ können aus dieser direkt abgelesen werden.
+        \begin{equation*}
+            c_k = 
+            \begin{cases}
+                \frac{1}{2i} \left(\frac{i}{2} \right)^{k+1} & \forall k \geq -1 \\
+                0 & \text{else}
+            \end{cases}
+        \end{equation*}
+
+%    Sei $f_n(z) = \sum_{k=0}^n c_k z^k$ mit Konvergenzradius $\varrho$ und $g: \{ z \in \mathds{C} : |z| > \frac{1}{\varrho} \} \rightarrow \mathds{C}$ mit $g(z) = f(\frac{1}{2}) = \sum_{k=0}^\infty c_n z^{-k}$ 
+
+\newpage
+\section{Integration}
+    Sei $ f = u + iv$ eine komplexe Funktion. Ihren reellwertiges Riemann integral kann wie folgt bestimmt werden.
+    \begin{equation*}
+        \int_a^b f (t) dt = \int_a^b u(t) dt + i \int_a^b v(t) dt
+    \end{equation*}
+    
+\subsection{Kurvenintegrale}
+% TODO: Make ref to Einführung komplexe Zahlen
+    In der Einführung zu komplexen Funktionen wurde gesagt, dass diese ein Vektorfeld im Raum $\mathds{C}$ bilden. Hier kommt dieser Fakt wieder sehr wichtig vor.
+    
+    Anderst wie im reellen Raum ist das komplexe Integral von Punkt $a$ zu Punkt $b$ nicht einfach die Fläche, die innerhalb dieses Intervalls von der Funktion $f$ aufgespannt wird. In der komplexen Ebene können verschiedene Wege von Punkt $a$ zu $b$ verwendet werden. Die Strecke muss also mit einem Weg $\gamma[a, b] \rightarrow \mathds{C}$ parametrisiert werden.
+    
+    Für $\Omega \subset \mathds{C}$ offen, $f: \Omega \rightarrow \mathds{C}$, $\gamma[a, b] \rightarrow \mathds{C}$ stetig, ist das komplexe Kurvenintegral beschrieben als:
+    \begin{equation*}
+        \int_\gamma f(z) dz = \int_a^b f(\gamma (t)) \cdot \dot{\gamma}(t) dt
+    \end{equation*}
+    
+    Falls in der Umgebung von $\gamma$ eine Stammfunktion existiert, dann gilt:
+    \begin{gather*}
+        f(\gamma (t))\dot{\gamma}(t) = \frac{d}{dt} (F \circ \gamma)(t) \\
+        \Rightarrow \int_\gamma f(z) dz = (F \circ \gamma)(b) - (F \circ \gamma)(a)
+    \end{gather*}
+    Bei der Verwendung der Stammfunktion ist also zu beachten, dass nicht direkt die Integrationsgrenzen $a, b$ eingesetzt werden, sondern die Grenzen des Weges $\gamma (a), \gamma (b)$.
+    
+    \subsubsection*{Kurvenintegral über geschlitzte Ebene}
+        Wichtig ist zu betonen, dass das Kurvenintegral über eine geschlossene Ebene $\neq 0$ sein kann, wenn das Riemannsche Blatt verlassen wird.
+        
+        \subsubsection*{Beispiel}
+            \begin{align*}
+                f(z) &= z^n   &  \gamma (t) &= Re^{it}   &   \dot{\gamma}(t) &= iRe^{it}
+            \end{align*}
+            \begin{gather*}
+                \int_\gamma z^n dz = \int_0^\tau R^n e^{int} \cdot iRe^{it} dt
+                = iR^{n+1} \int_0^\tau e^{(n+1)it} dt \\
+                = \frac{R^{n+1}}{n+1} (e^{(n+1)i\tau} - 1)
+            \end{gather*}
+            
+            Für $n > 1$ und $\tau = 2 \pi$ ist das eine geschlossene Kurve und $\int_\gamma z^n dz = 0$
+            
+            Für $n=-1$ und $\tau = 2\pi$ folgt:
+            \begin{gather}
+                \int_\gamma z^{-1} dz = \int_\gamma \frac{1}{z} dz = \int_0^\tau R^-1 e^{-it} \cdot Re^{it} dt = i\tau \\
+                \Rightarrow \int_\gamma \frac{1}{z} dz = 2\pi i
+            \end{gather}
+            
+            Dieser Unterschied ist beobachtbar, da beim Logarithmus das Riemannsche Blatt verlassen wird. Das geschlossene Kurvenintegral liefert daher einen Wert $\neq 0$.
+    
+
+\subsection{Cauchy Integralsatz}
+    Der Cauchy Integralsatz besagt, dass das geschlossene Kurvenintegral jeder \textbf{holomorphen} Funktion $0$ ergibt. Das geschlossene Kurvenintegral einer nicht-holomorphen Funktion kann $\neq 0$ sein.
+    
+    Für $\Omega \subset \mathds{C}$ offen, $f: \Omega \rightarrow \mathds{C}$ \textbf{holomorph}, $\gamma [a, b]$ geschlossen, gilt:
+    \begin{equation*}
+        \int_\gamma f(z) dz = 0
+    \end{equation*}
+    
+    \subsubsection*{Dirichlets Integral}
+        \begin{equation*}
+            \int_0^\infty \frac{\sin(x)}{x} dx = \frac{\pi}{2}
+        \end{equation*}
+        % TODO: Add graphics!
+        
+        Diese Funktion ist Divergent bei $x=0$. Zur Lösung dieses Integrals wurde in die komplexe Ebene erweitert und der Nullpunkt umlaufen.
+        % TODO: Make graphics and show how to calculate
+               
+\subsection{Cauchys Integralformel}
+     Sei $\gamma$ ein Weg über den Rand einer Kreisscheibe im Gegenuhrzeigersinn und $\xi$ innerhalb dieser Kreisscheibe; für eine holomorphe Funktion $f$ beschreibt die Cauchy'sche Integralformel somit, dass das Integral über diese Kurve direkt über die Punkte innerhalb der Kurve bestimmt werden kann. Praktisch verwenden wir diesen Ausdruck in der Form: 
+    \begin{equation*}
+        \oint_\gamma \frac{f(z)}{(z-\xi)^{n+1}} dz = \frac{2 \pi i}{n!} f^{(n)}(\xi)
+    \end{equation*}
+    
+    In der Literatur wird man diesen Ausdruck auch of in folgender anderen, leicht umgeformten, Form sehen.
+    \begin{equation*}
+        f^{(n)}(z) = \frac{n!}{2 \pi i} \oint_\gamma \frac{f(\xi)}{(\xi - z)^{n+1}} d\xi
+    \end{equation*}
+    
+    \subsubsection*{Spezialfall n=1}
+        Für diesen Spezialfall reduziert sich die Integralformel auf folgenden Ausdruck:
+        \begin{equation*}
+            \oint_\gamma \frac{f(z)}{z-\xi} dz = 2 \pi i f(\xi)
+        \end{equation*}
+        
+        Integrale dieser Form können somit direkt über einsetzen des Punktes $\xi$ in die Funktion $f$ gelöst werden.
+
+    \subsubsection*{Beispiel}
+        Als Beispiel wollen wir uns nun eine Aufgabe aus dem Proseminar ansehen. Mit $\gamma$ über einen Kreis um den Ursprung mit dem Radius $R=2$ im Uhrzeigersinn.
+        \begin{equation*}
+            \oint_\gamma \frac{z^2 e^z}{(z-i)^2} dz
+        \end{equation*}
+    
+        Direkt erkennen wir die Form des Cauchy Integralsatzes mit $n=1$.
+        Zuerst müssen wir aber überprüfen, ob der Cauchy Integralsatz überhaupt anwendbar ist. Die Funktion $f(z) = z^2 e^z$ ist \textbf{holomorph} und der Punkt $\xi = i \in K_R$.
+        Der Weg gamma geht jedoch entgegengesetzt dem Uhrzeigersinn. Um die Umlaufrichtung zu korrigieren müssen wir das Ergebnis nur mit $-1$ multiplizieren.
+        
+        Wir lösen nun das Integral
+        \begin{gather*}
+            \oint_\gamma \frac{z^2 e^z}{(z-i)^2} dz = - 2 \pi i f'(i) 
+            = 2 \pi i \frac{d}{dz}(z^2 e^z) \\
+            = 2 \pi i (2ie^i - e^i) = 2 \pi e^i (2+i) 
+        \end{gather*}
+        
+        
+\newpage        
+\section{Residuensatz}
+\subsection{Einführung}
+    Sei $f(z) = \sum_{k=-\infty}^\infty c_k(z-z_0)^k$ mit $f: \Omega \backslash \{z_1, ..., z_n\}$ mit $\gamma_{i, \epsilon}$ ist auf Kreisscheibe definiert mit $\epsilon > 0$, im Gegenuhrzeigersinn. Dann gilt
+    \begin{equation*}
+        \frac{1}{2 \pi i} \int_{\gamma_{i, \epsilon}} f(z) dz = c_{-1}
+    \end{equation*}
+    Der Koeffizient $c_{-1}$ der Laurentreihe nennt man das \textbf{Residuum}.
+    
+    Laut dem Cauchy-Integralsatz ergibt das Integral über jede geschlossene Kurve $=0$, solange die Funktion holomorph ist. Beim Integrieren des Termes mit $k=-1$ der Laurentreihen erhalten wir jedoch den Logarithmus, was ein Ergebnis von $\neq 0$ liefert. Alle anderen Terme der Reihe sind holomorph:
+    \begin{equation*}
+        \int_{\gamma_{i, \epsilon}} f(z) dz = \sum_{k=-\infty}^\infty \int_{\gamma_{i, \epsilon}} c_k (z-z_0)^k dz = 2 \pi i \cdot c_{-1}
+    \end{equation*}
+
+\subsection{Umlaufzahl}
+    Über diesen Weg können wir nun die \textbf{Anzahl der orientierten Umläufe} $\upnu$ um einen Punkt $z_0$ definieren.
+    \begin{equation*}
+        \upnu = \frac{1}{2 \pi i } \oint_\gamma \frac{1}{z-z_0} dz
+    \end{equation*}
+    Mit $\gamma[a, b] \rightarrow \mathds{C} \backslash z_0$ geschlossen.
+    
+    Hiermit kommen wir auf einen der wichtigsten Sätze in der Funktionstheorie. Mit $\Omega \subset \mathds{C}$ offen, $f: \Omega \backslash \{z_1, ..., z_n\} \rightarrow \mathds{C}$ holomorph und $\gamma[a, b] \rightarrow \Omega \backslash \{z_1, ..., z_n\}$, $\upnu_i \in \mathds{Z}$ ist Anzahl der Umläufe von $\gamma$ um $z_i$, dann gilt:
+    \begin{equation*}
+        \int_\gamma f(z) dz = 2 \pi i \sum_{i=1}^n \upnu_i \text{Res}_i(f)
+    \end{equation*}
+    
+    Mit $\text{Res}_i(f) = c_{-1, i}$ Residuum von $f$. Hier zu beachten sind nur Singularitäten, die sich innerhalb der Kreisscheibe des Integrationsweges befinden.
+    
+    \subsubsection*{Beispiel}
+        \begin{align*}
+            f(z) &= \frac{1}{1+z^2}  &  &f: \mathds{C} \backslash \{i, -i\} \rightarrow \mathds{C} \\
+            \gamma(t) &= i + re^{it} &  &\gamma : [0, 2\pi] \rightarrow \mathds{C}
+        \end{align*}
+        
+        Wobei $\gamma$ eine geschlossene Kreisbahn mit Radius $r$ um den Punkt $z = i$ beschreibt.
+        \begin{gather*}
+            \int_\gamma \frac{1}{1+z^2} dz
+            = \frac{1}{2 i} \underbrace{\int_\gamma \frac{dz}{z-1}}_{2 \pi i} - \frac{1}{2 i} \underbrace{\int_\gamma \frac{dz}{z+1}}_{\text{Cauchy} = 0} = \pi
+        \end{gather*}
+        
+        Durch die Anwendung des Residuensatzes können wir dieses Integral aber auch einfacher lösen. Hierfür schreiben wir die Funktion $f$ zuerst in eine Laurentreihe um:
+        \begin{equation*}
+            f(z) = \frac{1}{2i}(\frac{1}{z-i} - \frac{1}{z+i})   
+        \end{equation*}
+        
+        Hier erkennen wir sofort das Residuum $\text{Res}_i(f) = c_{-1} = \frac{1}{2i}$.
+        Mithilfe des Residuensatzes folgt direkt (für einen Umlauf $\upnu = 1$):
+        \begin{equation*}
+            \int f(z) dz = 2\pi i \upnu \text{Res}_i(f) = \pi
+        \end{equation*}
+        
+        
+\subsection{Spezialfall der Residuenbestimmung}
+    Seine eine Funktion $g(z)$ in der Form $g(z) = \frac{f(z)}{z-z_0}$, dann ist $\text{Res}_{z_0}(g) = f(z_0)$
+    
+    \subsubsection*{Beweis}
+        \begin{align*}
+            f(z) = f(z_0) + &\sum_{k=1}^\infty c_k(z-z_0)^k & &\textbf{Potenzreihe} \\
+            g(z) = \underbrace{\frac{f(z_0)}{z-z_0}}_{c_{-1} = f(z_0)} + &\sum_{k=0}^\infty c_{k+1} (z-z_0)^k & &\textbf{Laurentreihe}
+        \end{align*}
+        
+
+\subsection{Berechnung der Residuen}   \label{chap:BerechnungDerResiduen}
+    Sei $\Omega \subset \mathds{C}$ offen, $f: \Omega \to \mathds{C}$ holomorph und $z_0$ eine Singularität innerhalb der Kreisscheibe $K_R$.
+    \begin{equation*}
+        \lim_{z \to z_0} f(z) = 
+            \begin{cases}
+                \text{existiert} & \textbf{Hebbare Singularität} \\
+                \text{existiert nicht} & \textbf{Wesentliche Singularität}
+            \end{cases}
+    \end{equation*}
+    
+    Existiert der Grenzwert:
+    \begin{equation*}
+        \lim_{z \to z_0} (z - z_0)^k f(z)
+    \end{equation*}
+    für irgendein $k \in \mathds{N}$, so nennt man $z_0$ eine \textbf{Polstelle k-ter Ordnung}, wobei das kleinstmögliche $k$ verwendet wird, für das der Grenzwert existiert.
+    
+    \subsubsection*{Residuum für Polstellen}
+        Sei $z_0$ ein Pol k-ter Ordnung von f, dann gilt:
+        \begin{equation}
+            \label{eqn:ResiduumPolstellen}
+            \text{Res}_{z_0}(f) = \frac{1}{(k-1)!} \cdot \frac{d^{k-1}}{dz^{k-1}} \left[ (z-z_0)^k f(z) \right] \bigg\rvert_{z=z_0} 
+        \end{equation}
+
+    \subsubsection*{Herleitung}
+        \begin{equation*}
+            f(z) = \sum_{n=-k}^\infty c_k (z-z_0)^n
+        \end{equation*}
+        
+        Durch erweitern von beiden Seiten mit $(z - z_0)^k$ und ausschreiben der Reihe erhalten wir:
+        \begin{equation*}
+            (z - z_0)^k f(z) = c_{-1} + c_{-k+1}(z-z_0)^1 + \dots + c_{-1}(z-z_0)^{k-1} + \dots
+        \end{equation*}
+        
+        Durch (k-1)-Maligem ableiten dieses Ausdrucks fallen im Hauptteil der Laurentreihe alle Terme weg (außer $c_{-1}$):
+        \begin{equation*}
+            \frac{d^{k-1}}{dz^{k-1}} [(z-z_0)^k f(z)] = (k-1)! c_{-1} + \dots
+        \end{equation*}
+        
+        Alle übrigen Terme im Nebenteil (positiven Teil der Reihe) enthalten einen Faktor $(z-z_0)$. Durch evaluierung bei $z=z_0$ können wir diese also entfernen:
+        \begin{equation*}
+            \frac{d^{k-1}}{dz^{k-1}} [(z-z_0)^k f(z)] \bigg\rvert_{z=z_0} = (k-1)! c_{-1}
+        \end{equation*}
+        
+        Nun muss nur noch durch (k-1)! dividiert werden und wir erhalten unseren Ausdruck für das Residuum:
+        \begin{equation*}
+            \text{Res}_{z_0}(f) = c_{-1} = \frac{1}{(k-1)!} \cdot \frac{d^{k-1}}{dz^{k-1}} [(z-z_0)^k f(z)] \bigg\rvert_{z=z_0}
+        \end{equation*}
+        
+    \subsubsection*{Spezialfall}    
+        \begin{equation*}
+            f(z) = \frac{g(z)}{(z-z_0)}
+        \end{equation*}
+        
+        Hier können wir das Residuum direkt durch einsetzen in unsere allgemeine Formel für Polstellen erkennen:
+        \begin{equation*}
+            \text{Res}_{z_0}(f) = \frac{1}{(k-1)!} \cdot \frac{d^{k-1}}{dz^{k-1}} g(z) \bigg\rvert_{z=z_0}
+        \end{equation*}
+
+
+\subsection{Integrationsbeispiel für Residuensatz}
+    In diesem Beispiel wollen wir den Residuensatz hernehmen, um das reelle Integral
+    \begin{equation*}
+        I = \lim_{R \to \infty} \int_{_R}^R \frac{1}{1+x^4} dx
+    \end{equation*}
+
+    zu lösen. Der komplexe Ansatz kann direkt angenommen werden:
+    \begin{equation*}
+        f(z) = \frac{1}{1+z^4}
+    \end{equation*}
+
+    \subsubsection*{1) Singularitäten bestimmen}
+        \begin{align*}
+            z_1 &= \frac{1+i}{\sqrt{2}}  &  z_2 &= \frac{1-i}{\sqrt{2}}  &  z_3 &= \frac{-1+i}{\sqrt{2}}  &  z_4 &= \frac{-1-i}{\sqrt{2}}
+        \end{align*}
+        
+        % TODO: Bild einfügen
+        
+    \subsubsection*{2) Ordnung der Singularitäten bestimmen}
+        Wir nehmen hier an, dass es sich bei den Singularitäten um Polstellen handelt. Somit können wir den folgenden Grenzwert bilden um die Ordnung heraus zu finden.
+        \begin{equation*}
+            \lim_{z \to z_0} (z - z_0)^k f(z) \to c
+        \end{equation*}
+        
+        Mithilfe der Tangens Approximation folgt:
+        \begin{gather*}
+            1+z^4 = 4 z_k (z-z_k) + o(z - z_k) \\
+            \lim_{z \to z_0} (z - z_0)^k \frac{1}{4 z_k (z-z_k) + o(z - z_k)}
+        \end{gather*}
+        
+        Da dieser Grenzwert für $k=1$ bereits wohldefiniert ist müssen wir ihn garnicht berehnen. Wir haben eine \textbf{Polstelle 1. Ordnung}.
+        
+    \subsubsection*{3) Residuum berechnen}
+        Allgemein gilt für das Residuum von Polstellen:
+        \begin{equation*}
+            \text{Res}_{z_0}(f) = \frac{1}{(k-1)!} \cdot \frac{d^{k-1}}{dz^{k-1}} [(z-z_0)^k f(z)] \bigg\rvert_{z=z_0} 
+        \end{equation*}
+        
+        Hier für $k=1$ folgt also:
+        \begin{align*}
+            \text{Res}_{z_0}(f) &= \frac{1}{h'(z_0)}  &  &\text{mit} & h &= 1+z^4 
+        \end{align*}
+        
+    \subsubsection*{Spezialfall für Polstellen 1. Ordnung}
+        Mit dem allgemeinen Ansatz von $g(z)$ und $f(z)$
+        \begin{align*}
+            f(z) = \frac{g(z)}{h(z)} = \frac{1}{1+z^4} = \frac{g(z)}{(z-z_0)h'(z) + \psi (z-z_0)}  &  &\text{,}\lim_{z \to z_0} \psi (z-z_0) \to 0 
+        \end{align*}
+        
+        folgt für Polstellen 1. Ordnung direkt:
+        \begin{equation*}
+            \text{Res}_{z_k}(f) = \frac{g(z_k)}{h'(z_k)}
+        \end{equation*}
+        
+        In diese Formel können wir einfach unsere Funktionen $g(z_k) = 1$ und $h'(z_k) = 4z_k^3$ einsetzen und erhalten:
+        \begin{equation*}
+            \text{Res}_{z_k}(f) = \frac{1}{4 z_k^3} = \frac{1}{4} e^{-3i (\pi / 4) k}
+        \end{equation*}
+        
+    \subsubsection*{Integral berechnen}    
+        % TODO: Bild
+        Durch die Erweiterung in die komplexe Ebene können wir unsere Polstellen nun mit der, in der Graphik gezeigten, Kurve umlaufen. Wir haben somit eine Kurve $\gamma_R$
+        , die rein reell ist, und eine $\tilde{\gamma}_R$, die im komplexen Raum existiert.
+        Bemerke, dass nur 2 unserer 4 Singularitäten umlaufen werden. In der Berechnung des Integrals müssen dann auch nur diese 2 Polstellen berücksichtigt werden.
+        
+        Unsere Integralformel lautet, über die beiden Wege, mit den beiden Polstellen, also:
+        \begin{equation}
+            I = \lim_{R \to \infty} \left( \int_{\gamma_R} f(x) dx + \int_{\tilde{\gamma}_R} f(z) dz \right) = 2 \pi i \sum_{k=1, 3} \text{Res}_{z_k}(f)
+            \label{eqn:Integralbeispiel_Integral}
+        \end{equation}
+        
+        Das Integral über den extra Weg $\tilde{\gamma}_R$ wollen wir nun genauer betrachten.
+        \begin{gather*}
+            \tilde{\gamma}_R : [0, \pi] \to \mathds{C} \;;\; \tilde{\gamma}_R(t) =Re^{it} \\
+            \\
+            \text{Abschätzung für } R \to \infty \\
+            \text{Für } |z|^2 > 2 \\
+            |1+z^4| = |1 - (-z^4)| \geq |1 - |-z^4|| = |1 - |z|^4| = |z|^4 - 1 > \frac{|z|^4}{2} \\
+            \\
+            | (f \circ \tilde{\gamma}_R )| = \frac{1}{| 1 + \tilde{\gamma}_R^4(t) |} < \frac{2}{R^4} \\
+            | \int_{\tilde{\gamma}_R} f(z) dz | = | \int_0^\pi (f \circ \tilde{\gamma}_R) \dot{\tilde{\gamma}}_R dt | < \frac{2 \pi}{R^3} \\
+            \text{Für } \lim_{R \to \infty} \frac{2 \pi}{R^3} \to 0
+        \end{gather*}
+        
+        Somit haben wir jetzt herausgefunden, dass:
+        \begin{equation*}
+            \int_{\tilde{\gamma}_R} f(z) dz = 0
+        \end{equation*}
+        
+        Setzen wir dieses Erkenntnis wieder in Gleichung \ref{eqn:Integralbeispiel_Integral} ein, so erhalten wir unser Ergebnis:
+        \begin{gather*}
+            I = \lim_{R \to \infty} ( \int_{\gamma_R} f(x) dx + \underbrace{\int_{\tilde{\gamma}_R} f(z) dz }_{= 0} ) = 2 \pi i \sum_{k=1, 3} \text{Res}_{z_k}(f) \\
+            \Rightarrow \lim_{R \to \infty} \int_{-R}^R \frac{dx}{1+x^4} = 2 \pi i \sum_{k=1, 3} \text{Res}_{z_k}(f) = \\
+            \frac{2 \pi i}{4} \left[ e^{-3i(\pi / 4)} + e^{-3i(\pi / 4)3} \right]
+            = \frac{\pi i}{2}\left[ -\frac{1+i}{\sqrt{2}} + \frac{1-i}{\sqrt{2}} \right]
+            = \frac{\pi}{\sqrt{2}}
+        \end{gather*}
+        
+        Somit haben wir jetzt unser Ergebnis für das reale Anfangsintegral erhalten:
+        \begin{equation*}
+            \lim_{R \to \infty} \int_{-R}^R \frac{dx}{1 + x^4} = \frac{\pi}{\sqrt{2}}
+        \end{equation*}
+        
+        
+\subsection{Integrationsbeispiel aus dem Proseminar}
+    In diesem Beispiel wollen wir das folgende Integral in einem Kreis entlang des mathematisch positiven Sinn durchlaufen.
+    \begin{equation*}
+        \oint_\gamma \left[ z^2e^{1/z} + \frac{cos(z)}{z^3(z + \pi)^2} \right] dz
+        = \underbrace{\oint_\gamma z^2e^{1/z} dz}_{I} + \underbrace{\oint_\gamma \frac{cos(z)}{z^3(z + \pi)^2} dz}_{II}
+    \end{equation*}
+
+    Mit der Kreiskondition: $|z-1| = 3$. Somit folgt direkt, dass der Kreis alle Punkte der Menge $K_R = \{ z \in \mathds{C} : |z-1| \leq 3 \}$ beinhaltet.
+    Das Integral haben wir in zwei einzelne aufgebrochen. Zuerst wollen wir uns dem ersten widmen.
+
+    \subsubsection*{Integral I}
+        \begin{equation*}
+            \oint_\gamma z^2e^{1/z} dz
+        \end{equation*}
+        
+        Hier können wir bei der Exponentialfunktion direkt die Singularität bei $z_0 = 0$ erkennen.
+        Zuerst werden wir versuchen die Funktion innerhalb des Integrals in eine Laurentreihe für diese Singularität umzuwandeln, da wir
+        so direkt das Residuum ablesen können.
+        \begin{gather*}
+            f(z) = z^2 e^{1/z} = z^2 \sum_{n=0}^\infty \frac{1}{z^n n!}
+            = z^2 \sum_{n=0}^\infty \frac{z^{-n}}{n!}          \\
+            = z^2 \sum_{n=-\infty}^0 \frac{z^n}{(-n)!}
+            = \sum_{n=-\infty}^0 \frac{z^{n+1}}{(-n)!}         \\
+            = \sum_{n=-\infty}^0 \frac{(z-z_0)^{n+2}}{(-n)!}
+            = \sum_{n=-\infty}^2 \frac{(z-z_0)^n}{(-(n-2))!}
+        \end{gather*}
+
+        Die Umformung in eine Laurentreihen war also möglich. Das Residuum kann jetz einfach durch betrachten des $n=-1$ ten Elements abgelesen werden.
+        \begin{equation*}
+            \text{Res}_{z_0}(f) = \frac{1}{(-(-1-2))!} = \frac{1}{6}
+        \end{equation*}
+        
+    \subsubsection*{Bestimmung der Singularität}
+        Da der Rechtsseitige- und Linksseitige Grenzwert von
+        % TODO: Diese grenzwerte nur für reell richtig? Kontrolle!
+        \begin{equation*}
+            \lim_{z \to z_0=0} z^2 e^{1/z} =
+            \begin{cases}
+                0      & \text{Linksseitig} \\
+                \infty & \text{Rechtsseitig}
+            \end{cases}
+        \end{equation*}
+        
+        nicht existiert handelt es sich um eine \textbf{wesentliche Singularität}.
+        
+    \subsubsection*{Berechnung Integral I}
+        Die Singularität muss bei der Integration um den Kreis $K_R$ nur betrachtet werden, wenn sie sich innerhalb des Kreises $K_R = \{ z \in \mathds{C} : |z-1| \leq 3 \}$ befindet.
+        Das Überprüfen wir für die Singularität bei $z_0$ jetzt:
+        \begin{equation*}
+            |z_0 - 1| = |0-1| = 1 \leq 3 \Rightarrow z_0 \in K_R
+        \end{equation*}
+        
+        Unter Berücksichtigung der Singularität ergibt das Integral somit:
+        \begin{equation}
+            \label{Integralbeispiel_PS_I}
+            \oint_\gamma f(z) dz = \oint_\gamma z^2 e^{1/z} dz = 2 \pi i \text{Res}_{0}(f) = \frac{\pi i }{3}
+        \end{equation}
+
+    \subsubsection*{Integral II}
+        \begin{equation*}
+            \oint_\gamma \frac{cos(z)}{z^3(z + \pi)^2} dz
+        \end{equation*}
+        
+        Auch hier können wir direkt die Singularitäten bei $z_0 = 0$ und $z_1=-\pi$ ablesen, da bei diesen Punkten der Nenner 0 wird.
+        Wir nehmen an, dass es sich bei der Singularität $z_0$ um eine Polstelle handelt. Die Ordnung sehen wir uns jetz an:
+
+    \subsubsection*{Singularität und Residuum $z_0$}    
+        \begin{gather*}
+            \lim_{z \to z_0} = (z-z_0)^k g(z) \\
+            \text{Für } z_0 = 0 \\
+            \lim_{z \to 0} z^k \frac{cos(z)}{z^3(z+\pi)^2} \underbrace{=}_{k=3} \lim_{z \to 0} \frac{cos(z)}{(z+\pi)^2} = \frac{1}{\pi^2}
+        \end{gather*}
+        
+        Für $k=3$ können wir direkt ablesen, dass der Grenzwert existiert. Es handelt sich daher um eine \textbf{Polstelle 3. Ordnung}.
+        Um uns etwas Rechenarbeit zu ersparen, kontrollieren wir zuerst, ob die Polstelle innerhalb des Kreises $K_R$ liegt, bevor wir das Residuum berechnen:
+        \begin{equation*}
+            |z_0 - 1| = |0-1| = 1 \leq 3 \Rightarrow z_0 \in K_R
+        \end{equation*}
+        
+        Da die Singularität innerhalb des Kreises liegt, um den wir Integrieren, wird auch sein Residuum relevant sein. Dieses wollen wir jetzt mit der klassischen Residuum Formel für Polstellen berechnen.
+        \begin{gather*}
+            \text{Res}_{z_0} = \frac{1}{(k-1)!} \cdot \frac{d^{k-1}}{dz^{k-1}} \left[(z-z_0)^k g(z) \right] \bigg\rvert_{z=z_0} \\
+            = \frac{1}{2} \frac{d^3}{dz^3} \left[ z^3 \frac{\cos z}{z^3(z+\pi)^2} \right] \bigg\rvert_{z=z_0} \\
+            = \frac{1}{2} \left[ \frac{-(z+\pi) \sin z - 2 \cos z}{(z+ \pi)^3} \right] \bigg\rvert_{z=z_0} \\
+            = \frac{1}{2} \left( \frac{-2}{\pi^3} \right)
+            = -\frac{1}{\pi^3}
+        \end{gather*}
+        
+    \subsubsection*{Singularität und Residuum $z_1$}    
+        Mit dem ersten Residuum bestimmt kommen wir nun zur zweiten Singularität bei $z_1 = - \pi$. Hierfür können wir sofort erkennen:
+        \begin{equation*}
+            |z-1| = |-\pi - 1| = \pi + 1 > 3 \Rightarrow z_1 \notin K_R
+        \end{equation*}
+        
+        Die zweite Singularität liegt außerhalb des Kreises über den wir integrieren. Sie muss also für unsere weiteren Berechnungen \textbf{nicht berücksichtigt} werden. Um jedoch etwas mehr Übung mit der Residuenberechnung und der Polstellenbestimmung zu bekommen, werden wir sein Residuum dennoch berechnen. Die folgenden Schritte sind für das Ergebnis jedoch nicht relevant und können daher übersprungen werden.
+        
+        Mit der Annahme, dass es sich bei dieser Singularität wieder um eine Polstelle handelt können wir direkt über den Polstellenansatz die Ordnung direkt ablesen:
+        \begin{gather*}
+            \lim_{z \to -\pi} (z + \pi)^k \frac{\cos z}{z^3 (z+\pi)^2}
+            \underbrace{=}_{k=2} \lim_{z \to -\pi} \frac{\cos z}{z^3} = \frac{1}{\pi^3}
+        \end{gather*}
+        
+        Somit ist bestätigt, dass die Singularität eine Polstelle \textbf{2. Ordnung} ist.
+        
+        Das Residuum erhalten wir wieder über unsere Residuenformel für Polstellen:
+        \begin{gather*}
+            \text{Res}_{-\pi}(g) = \frac{1}{(2-1)!} \frac{d^1}{dz^1} \left[ (z+\pi)^2 \frac{\cos z}{z^3 (z+\pi)^2} \right] \bigg\rvert_{z=z_0=-\pi} \\
+            = \frac{d}{dz} \frac{\cos z}{z^3} \bigg\rvert_{z=-\pi}
+            = -\frac{3}{\pi^4}
+        \end{gather*}
+        
+    \subsubsection*{Berechnung Integral II}
+        Nur die erste Singularität liegt innerhalb des Kreises, daher wird auch nur dessen Residuum verwendet.
+        \begin{equation}
+            \label{Integralbeispiel_PS_II}
+            \oint_\gamma g(z) dz = 2 \pi i \sum_{i=0}^1 \text{Res}_{z_i}(g)
+            = 2 \pi i \left(-\frac{1}{\pi^3} \right)
+            = - \frac{2i}{\pi^2}
+        \end{equation}
+        
+    \subsubsection*{Lösung Aufgabe}     
+        Das Anfangsintegral kann nur mit den Lösungen aus Gleichungen \ref{Integralbeispiel_PS_I} und \ref{Integralbeispiel_PS_II} einfach zusammengeführt werden.
+        \begin{gather*}
+            \oint_\gamma \left[ z^2e^{1/z} + \frac{cos(z)}{z^3(z + \pi)^2} \right] dz
+            = \oint_\gamma f(z) dz + \oint_\gamma g(z) dz \\
+            = \frac{\pi i}{3} - \frac{2i}{\pi} = \frac{i(\pi^3-6)}{3 \pi^2}
+        \end{gather*}
+        
+        Wir haben also bestimmt, dass:
+        \begin{equation*}
+            \oint_\gamma \left[ z^2e^{1/z} + \frac{cos(z)}{z^3(z + \pi)^2} \right] dz
+            = \frac{i(\pi^3-6)}{3 \pi^2}
+        \end{equation*}
+        
+        
+\subsection{Integration über Schnitte}
+    Zur Herleitung der allgemeinen Formel werden hier erstmal endliche Schnitte betrachtet, wie Beispielsweise bei der Funktion $f(z) = \ln \frac{z+1}{z-1}$.
+    
+    % TODO: Bilder
+    
+    Die Kurve in 1 wird um einen Schnitt herum gestreckt (2). Nach dem Cauchy Integralsatz ergibt das Integral über diese Kurve 0.
+    
+    Lässt man den Abstand der rechten Kanten nun gegen 0 gehen, so heben sich die Integrale über diese zwei Kanten genau auf, da ihre Länge und Position gleich ist, und ihre Richtung entgegengesetzt.
+
+    Dadurch haben wir den Weg aus 1 nun auf 2 Wege aufgeteilt. Einen im Abstand $\epsilon$ direkt um den Schnitt und einen Umhüllenden mit:
+    
+    \begin{equation*}
+        \int_\gamma f(z) dz = \int_{\gamma_1} f(z) dz + \int_{\gamma_2} f(z) dz = 0
+    \end{equation*}
+
+    Für den Weg $\gamma_2$ gilt:
+    \begin{gather*}
+        \int_{\gamma_2} f(z) dz = \lim_{\epsilon \to 0} \int_a^b f(x-i \epsilon) dx + \int_a^b f(x+i \epsilon) dx \\
+        = \lim_{\epsilon \to 0} \int_a^b dx \left[ f(x+i\epsilon) - f(x-i\epsilon) \right]
+    \end{gather*}
+    
+    Dadurch, dass die Wege $\gamma_1$ und $\gamma_2$ in entgegensgesetzte Richtungen laufen, und deren Summe gleich 0 ergeben, folgt:
+    \begin{gather*}
+        \int_{\gamma_1} f(z) dz + \int_{\gamma_2} f(z) dz = 0 \\
+        \int_{\gamma_1} f(z) dz = - \int_{\gamma_2} f(z) dz
+    \end{gather*}
+    
+    Und dadurch:
+    \begin{equation*}
+        \int_{\gamma_1} f(z) dz = - \lim_{\epsilon \to 0} \int_a^b dx \left[ f(x+i\epsilon) - f(x-i\epsilon) \right]
+    \end{equation*}
+        
+    \subsubsection*{Beispiel}
+        % TODO: Beispiel aber direkt mit Graphik!
+
+
+\subsection{Lemma von Jordan}
+    Das Lemma von Jordan ermöglicht uns unter anderem eine vereinfachte Auswertung reeller Integrale mit unendlichen Grenzwerten über die komplexe Ebene.
+    Hierfür übertragen wir das Integral zuerst in die Komplexe Form und Verbinden die obere und die untere Integrationsgrenze über einen Halbkreis.
+    \begin{equation*}
+        \int_{-\infty}^\infty f(x) dx = \int_{\gamma_{\mathds{R}}} f(z) dz + \int_{\gamma_{\text{HK}}} f(z) dz
+    \end{equation*}
+    
+    In dieser Gleichung beschreibt $\gamma_{\mathds{R}}$ das Integral über die gesamte reelle Achse und $\gamma_{\text{HK}}$ das Integral über den Halbkreis.
+    Diese Gleichung gilt jedoch nur, wenn das Wegintegral über den Halbkreis schnell genug abfällt, sodass das gesamte Integral gleich 0 wird.
+    Dies kann überprüft werden, indem man den folgenden Grenzwert kontrolliert.
+    \begin{equation*}
+        \lim_{R \to \infty} R |f(R e^{it})| = 0
+    \end{equation*}
+    
+    Ist dieser gegeben, so kann das Lemma von Jordan angewandt werden. Die Nützlichkeit dieses wird uns jetzt gleich bekannt.
+    Unser neues Integral im komplexen Raum ist über eine Kurve geschlossen, was bedeutet, dass wir auf dieses den Residuensatz anwenden können.
+    \begin{equation*}
+        \int_{-\infty}^\infty f(x) dx = \int_{\gamma_{\mathds{R}}} f(z) dz + \int_{\gamma_{\text{HK}}} f(z) dz = 2 \pi i \sum_j \text{Res}_j(f)
+    \end{equation*}
+    
+    Und da das Wegintegral über den Halbkreis nach dem Lemma von Jordan gleich 0 wird, erhalten wir unser gewolltes Ergebnis
+    (Wobei die Residuen innerhalb des oberen oder unteren Halbkreises gemeint sind):
+    \begin{equation*}
+        \int_{-\infty}^\infty f(x) dx = 2 \pi i \sum_j \text{Res}_j(f)
+    \end{equation*}
+    
+    In der Praxis ist \textbf{wichtig} zu beachten, ob das reelle Integral über den oberen oder den unteren Halbkreis geschlossen wird
+    , da in einigen Situationen nur eines der beiden gegen 0 konvergiert! Sowieso ist dies auch Wichtig, damit die richtigen Residuen verwendet werden.
+    Dies ist in folgendem Beispiel zu sehen.
+    
+    \subsubsection*{Beispiel}
+        
+        
+\subsection{Fouriertransformation mit Residuen}
+    In diesem Beispiel wollen wir die Fourier Transformation der folgenden Funktion mit der Hilfenahme von Residuen bestimmen.
+    \begin{equation*}
+        f(x) = \frac{1}{(1+x^2)^n}
+    \end{equation*}
+    
+    Die Singularitäten erkennen wir durch Erfahrung direkt als Polstellen an den Punkten $x = \pm i$. Formal kann dies, wie in Kapitel \ref{chap:BerechnungDerResiduen} beschrieben, hergeleitet werden.
+    
+    Die Fouriertransformation der Funktion $f$ ist per Definition in der Form
+    \begin{equation*}
+        (\mathcal{F} f_n)(k) = \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^\infty \frac{e^{-ikx}}{(1+x^2)^n} dx
+    \end{equation*}
+    
+    darzustellen. Durch Anwendung des Residuensatzes soll das Integral vereinfacht berechnet werden.
+    Direktes Einsetzen ergibt schon fast das Endresultat der Berechnung, bei dem nur noch das Residuum bestimmt werden muss:
+    \begin{equation*}
+        \sqrt{2\pi} \cdot (\mathcal{F} f_n)(k) = 2\pi i \sum_j \text{Res}_{j}\left( \frac{e^{-ikx}}{(1+x^2)^n} \right)
+    \end{equation*}
+    
+    Zur Bestimmung des Residuums werden die einzelnen Komponenten der Funktion $f$ noch auf eine einfachere Form gebracht.
+    Wir schreiben für den Term zur n-ten Potenz
+    \begin{equation*}
+        (1+z^2)^n = (z-i)^n (z+i)^n
+    \end{equation*}
+    
+    und für die Exponentialfunktion
+    \begin{equation*}
+        e^{-ikz} = e^{-ik(z+i)-k} = e^{-k} \left(1 - ik(z+i) + \dots + \frac{(-ik)^n}{n!}(z+i)^n + \dots \right).
+    \end{equation*}
+    
+    Zur Brechnung des Residuen muss das reellwertige unendliche Integral vorerst noch in ein komplexes Wegintegral übergeführt werden.
+    Das kann mithilfe des Lemma von Jordan erreicht werden, wofür das Wegintegral der Funktion $f$ über den gewählten Halbkreis verschwinden muss.
+    Aus der Konvergenzüberprüfung, die hier nicht explizit angeführt wird, erhält man, dass für $k>0$ der Halbkreis über die negative imaginäre Achse gewählt werden muss und für $k<0$ der positive.
+    
+    Für ein $k>0$ liegt nur die Polstelle an $x=-i$ innerhalb der vom Weg umschlossenen Fläche und muss beachtet werden. Hierfür erhält man mittels der Residuenformel den Wert
+    \begin{gather*}
+        \text{Res}_{-i}\left(\frac{e^{-ikz}}{(1+z^2)^n} \right) = \frac{1}{(n-1)!} \cdot \lim_{z \to -i} \cdot \frac{d^{n-1}}{dz^{n-1}} \left[ (z+i)^n f_n(z) \right] \bigg\rvert_{z=-i} \\
+        = \frac{1}{(n-1)!} \cdot \lim_{z \to -i} \frac{d^{n-1}}{dz^{n-1}} \cdot \frac{e^{-i} (1-ik(z+i) + \dots)}{(z-i)^n)} \\
+        = \frac{(-ik)^{n-1} e^{-k}}{(n-1)! (-2i)^n}
+        = e^{-k} \frac{ik^{n-1}}{2^n (n-1)!} .
+    \end{gather*}
+    
+    Für alle $k>0$ muss der obere Halbkreis über die imaginäre Achse durchlaufen und die Polstelle $x=i$ betrachtet werden.
+    Diese Berechnung erfolgt völlig äquivalent.
+    Diese beiden Ergebnisse können zu einer Lösung $\forall k \in \mathds{R}$ verallgemeinert zusammengeführt werden als:
+    \begin{equation*}
+        (\mathcal{F} f_n)(k) = \sqrt{2\pi} \cdot \frac{|k|^{n-1}}{2^n (n-1)!} e^{-|k|}
+    \end{equation*}
+    
+    
+    \subsubsection*{Verallgemeinerung}
+        Da diese Form von Funktion öfters gesehen werden kann soll hier noch eine Verallgemeinerung der Funktion $f$ durch 
+        \begin{equation*}
+            g(x) = \frac{a^{2n}}{(a^2 + x^2)^n}
+        \end{equation*}
+        gegeben werden.
+        Die Fourertransformierte dieser soll hier nicht durchgeführt werden sondern nur ihr Ergebnis gestellt:
+        \begin{equation*}
+            (\mathcal{F}f_n)(k) = \sqrt{2\pi} \cdot \frac{a \cdot (a |k|)^{n-1}}{2^n (n-1)!} \cdot e^{-a|k|}
+        \end{equation*}
+
+
+\newpage
+\begin{center}
+\section*{Formelsammlung}
+% Add unnumbered subsection to table of contents
+\label{sec:Funktionentheorie-Formelsammlung}
+\addcontentsline{toc}{section}{\nameref{sec:Funktionentheorie-Formelsammlung}}
+\end{center}
+    \begin{minipage}{0.45\textwidth}
+        \subsubsection*{Komplexer Logarithmus}
+            $$ \ln(z) = \ln |z| + i(\arg (z) + 2k\pi) $$
+            
+        \subsubsection*{Komplexe Wurzelfunktion}
+            $$ z_k = \sqrt[n]{|w|} \cdot e^{i \frac{\phi}{n}} \cdot e^{i 2\pi \frac{k}{n}} $$
+            
+            $ \forall k \in [0, n-1] $ \\
+            $ z^n = w = |w| e^{i \phi} $
+        
+        \subsubsection*{Komplexes Integral}
+            $$ \int_a^b f(t) dt = \int_a^b u(t) dt + i \int_a^b v(t) dt $$
+            
+            $ f = u + iv $
+        
+        \subsubsection*{Komplexes Kurvenintegral}
+            $$ \int_\gamma f(z) dz = \int_a^b f(\gamma(t)) \cdot \dot\gamma(t) dt $$
+            
+            $ \gamma: [a, b] \to \mathds{C} $
+            
+        \subsubsection{Cauchys Integralformel}
+            $$ \oint_\gamma \frac{f(z)}{(z-\xi)^{n+1}} dz = \frac{2 \pi i}{n!} f^{(n)}(\xi) $$
+        
+            $f(z) \,\, \text{holomorph}$ \\
+            $\gamma \,\, \text{Kreis gegen Uhrzeigersinn}$ \\
+            $\xi \in K_R(\gamma)$
+        
+        \subsubsection*{Cauchy-Riemann DGL}
+            \begin{align*}
+                \partial_x v &= - \partial_y u \\
+                \partial_x u &= \partial_y v
+            \end{align*}
+            
+            $ f(x + iy) = u(x, y) + i v(x, y) $
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \subsubsection*{Potenzreihe}
+            $$ f(z) = \sum_{k \in \mathds{Z}_{\geq 0}} c_k (z-z_0)^k $$
+            
+            $$ T(f)(x; \xi) = \sum_{n=0}^\infty \frac{f^{(n)}(\xi)}{n!}(x-\xi)^n $$
+            
+        \subsubsection*{Laurentreihe}
+            $$ f(z) = \sum_{k \in \mathds{Z}} c_k (z-z_0)^k $$
+            $$ c_k = \frac{1}{2 \pi i} \int_\gamma \frac{f(z) dz}{(z-z_0)^{k+1}}$$    
+        
+            $ \gamma: [0, 2\pi] \to \mathds{C}, \gamma (t) = \rho e^{it} $
+            
+        \subsubsection*{Residuum}
+            $$ \text{Res}(f) = \frac{1}{2\pi i} \int_\gamma f(z) dz = c_{-1}$$
+            
+            $ f(z) \,\, \text{Laurentreihe} $ \\
+            $ \gamma \,\, \text{Kreisscheibe gegen Uhrzeigersinn} $
+        
+        \subsubsection*{Umlaufzahl}
+            $$ \upnu = \frac{1}{2\pi i} \oint_\gamma \frac{1}{z-z_0} dz $$
+            
+            $ \gamma \,\, \text{geschlossen} $
+            
+        \subsubsection*{Residuensatz}
+            $$ \int_\gamma f(z) dz = 2 \pi i \sum_{i=1}^n \upnu_i \text{Res}_i(f) $$
+            
+            $ \gamma \,\, \text{geschlossen} $ \\
+            $ n \,\, \text{Anzahl Residuen in} \, K_r(\gamma) $
+    \end{minipage}
+    
+\newpage
+    \begin{minipage}{0.45\textwidth}
+        \subsubsection*{Residuum Spezialfall}
+            $$ g(z) = \frac{f(z)}{z-z_0} $$
+            $$ \text{Res}_{z_0}(g) = f(z_0) $$
+        
+        \subsubsection*{Residuum für Polstellen}    
+        $$
+            \text{Res}_{z_0}(f) = \frac{1}{(k-1)!} \cdot \frac{d^{k-1}}{dz^{k-1}} \left[ (z-z_0)^k f(z) \right] \bigg\rvert_{z=z_0} 
+        $$
+        
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+    
+    \end{minipage}
+    

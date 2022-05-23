@@ -1,0 +1,51 @@
+\documentclass[a4paper,12pt]{report} % ,twoside
+\usepackage[utf8]{inputenc}
+
+% Extended Mathematics
+\usepackage{amsmath}
+
+% More symbols
+\usepackage{amssymb}
+\usepackage{upgreek}
+\usepackage{dsfont}
+\usepackage{physics}
+
+% Plotting
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16,width=10cm,height=14cm}
+\usepgfplotslibrary{external}
+\tikzexternalize
+
+% Language settings
+\usepackage[german]{babel}
+
+% Colored links
+\usepackage{color}
+
+% Better navigation (Clickable table of contents)
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+% -----------
+
+\title{Mathematische Methoden der Physik II}
+\author{Oliver Benz}
+\date{November 2021}
+
+\begin{document}
+    \include{chapters/Titlepage}
+
+    \pagenumbering{Roman}
+    \tableofcontents
+    
+    \newpage
+    \pagenumbering{arabic}
+    \include{chapters/Funktionentheorie}
+    \include{chapters/Partielle_Differntialgleichungen}
+
+\end{document}

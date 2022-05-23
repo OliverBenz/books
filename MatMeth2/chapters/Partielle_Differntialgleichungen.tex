@@ -1,0 +1,95 @@
+\chapter{Partielle Differentialgleichungen}
+\section{Einführung}
+    In den folgenden Kapiteln wollen wir uns vorerst partielle Differentialgleichungen (PDG) der zweiten Ordnung ansehen.
+    Die Ordnung der PDG ist durch die höchste vorkommende Ableitung gegeben.
+    Beispielsweise ist die folgende PDG von zweiter Ordnung.
+    \begin{equation*}
+        \pdv[2]{u}{x} + \pdv{u}{t} = 0
+    \end{equation*}
+    
+    Wir differenzieren zwischen drei verschiedenen Typen von PDG 2. Ordnung. Diese sehen wir uns jetzt in den folgenden Unterpunkten genauer an.
+    
+    
+    \subsection*{Elliptischer Typ}
+        Partielle Differentialgleichungen, die der Form der Lagrange-Gleichung entsprechen, was bedeutet, dass nur Ortsableitungen von 2. Ordnung vorkommen und keine Zeitableitungen, nennt man PDG vom elliptischen Typ. Sie können über folgende Form dargestellt werden, wobei $\Delta$ dem Laplace Operator entspricht.
+        \begin{equation*}
+            \Delta u = 0
+        \end{equation*}
+
+        In 2D kartesischen Koordinaten würde das beispielsweise folgende Form annehmen:
+        \begin{equation*}
+            \left(\pdv[2]{}{x} + \pdv[2]{}{y} \right) u(x, y) = 0
+        \end{equation*}
+        
+        In der Physik sieht man PDG dieser Art unter anderem in der Elektrostatik, wo $u$ das elektrische Potential beschreibt. Ein Beispiel hierfür ist die Poisson-Gleichung $\Delta u (\vec{x}) = \rho(\vec{x})$. Ein weiteres häufiges Anwendungsgebiet dieser ist in der Wärmelehre unter Betrachtung von $u$ als Temperaturverteilung.
+        
+        
+    \subsection*{Parabolischer Typ}
+        Beinhaltet die partielle Differentialgleichung neben den Ortsableitungen 2. Ordnung ebenso eine einfache Zeitableitung, so handelt es sich um eine PDG parabolischer Art. Sie kann über folgende allgemeine Form dargestellt werden und wird auch \textbf{Diffusionsgleichung} genannt.
+        \begin{equation*}
+            \Delta u = \frac{1}{\kappa} \pdv{u}{t}
+        \end{equation*}
+        
+%        Physikalisch motiviert $t \to \infty$ der statische Fall:
+%        \begin{equation*}
+%            \lim_{t \to \infty} \frac{\partial u}{\partial t} = 0
+%        \end{equation*}
+%        % TODO: Skizze
+        
+        
+    \subsection*{Hyperbolische Typ}
+        Die partiellen Differentialgleichungen, die neben den Ortsableitungen 2. Ordnung ebenso eine Zeitableitung 2. Ordnung besitzen, nennt man Hyperbolische DGL. Sie beschreibt die bereits bekannte \textbf{Wellengleichung} und kann in folgender Form allgemein dargestellt werden.
+        \begin{equation*}
+            \Delta u = \frac{1}{v^2} \frac{\partial^2 u}{\partial t^2}
+        \end{equation*}
+        
+        
+    \subsection*{Randwertproblem}
+        Gebiet A, Rand dieses Gebietes $\partial A$
+        % TODO: Skizze
+        
+        Bestimmung von Rändern durch
+        - Dirichlet-Randbedingungen: $ u(\partial A) $
+        - Neumann-Randbedingungen:   $ \nabla u \cdot n \rvert_{\partial A} $
+        % TODO: Skizzen 
+        
+        
+\section{Lösungsmethoden}
+    \subsection{Übersicht}
+    \subsubsection*{Analytische Verfahren}
+        - Integraldarstellung
+            Nur in seltenen Fällen möglich, nur für sehr einfache Gleichungen möglich
+            z.B. Diffusion in d=1
+            \begin{equation*}
+                \pdv[2]{u}{x} = \pdv{u}{t}
+            \end{equation*}
+            \begin{equation*}
+                \Rightarrow u(x, t) = \frac{1}{2\sqrt{\pi t}} \int_{-\infty}^\infty dy \cdot e^{-\frac{(x-y)^2}{4t}} f(y) mit f(y) = u(x, 0)
+            \end{equation*}
+            
+        - Integraltransformation
+            Start - Partielle DGL
+            -> Fouriertransformation auf beiden Seiten durchführen
+            -> Umformen der Gleichung, sodass die Variable explizit dasteht
+            -> Fourertransformation zurück
+            
+            Idee: Fouriertransformation macht aus ableitung ein polynom:
+            $ \Delta u(x) = \dots$ \\
+            $ FT(\Delta u(x)) = -p^2 U(p)$, $U(p) = FT(u) $
+            
+        - Separation der Variablen
+            Idee:
+            \begin{equation*}
+                u(x, y, t) = X(x) \cdot Y(y) \cdot T(t)
+            \end{equation*}
+            
+    \subsubsection*{Numerische Methoden}
+        - Diskrete  Fouriertransformation
+            Fast Fourier Transform FFT
+            
+        - Relaxationsverfahren
+            Iterationsverfahren -> Optimierungsproblem
+            Anfangswerte fixieren und dann die funktion immer besser annähern ??
+            
+    \subsection{Integraltransformation}
+        
